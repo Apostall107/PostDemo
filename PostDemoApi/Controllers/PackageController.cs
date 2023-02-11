@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PostDemoApi.DAL;
 using PostDemoApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -8,48 +10,48 @@ namespace PostDemoApi.Controllers {
     [ApiController]
     public class PackageController : ControllerBase {
 
-        private static List<Package> _packages = new List<Package>() {
-            new Package(){
-             Id = 0,
-             Title = "Test Title",
-             Description = "Just some description",
-             Kilos = 10,
-             sendDate= DateTime.Now,
-            },
-                        new Package(){
-             Id = 1,
-             Title = "Test Title 2 ",
-             Description = "Just some description 2 ",
-             Kilos = 20,
-             sendDate= DateTime.Now,
-            }
+        private readonly DatabaseContext _dbContext;
 
-        };
+        public PackageController(DatabaseContext context) {
+            _dbContext = context;
+        }
+
+
 
         // GET: api/<PackageController>
         [HttpGet]
-        public IActionResult Get() {
-            return Ok(_packages);
+        public async Task<IActionResult> Get() {
+            return Ok( await _dbContext.Packages.ToListAsync());
         }
 
         // GET api/<PackageController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id) {
-            return Ok(_packages.FirstOrDefault(x => x.Id == id));
+        public async Task<IActionResult> Get(int id) {
+            var pack = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (pack == null) {
+                return NotFound();
+            }
+
+            return Ok(pack);
         }
 
         // POST api/<PackageController>
         [HttpPost]
         [Route("AddPackage")]
-        public IActionResult Post(Package package) {
-            _packages.Add(package);
+        public async Task<IActionResult> Post(Package package) {
+
+            _dbContext.Packages.Add(package);
+
+            await _dbContext.SaveChangesAsync();
             return Ok();
         }
 
         // PUT api/<PackageController>/5
         [HttpPatch("{id}")]
-        public IActionResult Patch(Package package) {
-            var existPackage = _packages.FirstOrDefault(x => x.Id == package.Id);
+        public async Task<IActionResult> Patch(Package package) {
+
+            var existPackage = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == package.Id);
             if (existPackage == null) {
                 return NotFound();
             }
@@ -57,18 +59,19 @@ namespace PostDemoApi.Controllers {
             existPackage.Kilos = package.Kilos;
             existPackage.Description = package.Description;
             existPackage.sendDate = package.sendDate;
-
+            await _dbContext.SaveChangesAsync();
             return NoContent();
         }
 
         // DELETE api/<PackageController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) {
-            var package = _packages.FirstOrDefault(x => x.Id == id);
+        public async Task<IActionResult> Delete(int id) {
+            var package = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == id);
             if (package == null) {
                 return NotFound();
             }
-            _packages.Remove(package);
+            _dbContext.Packages.Remove(package);
+            await _dbContext.SaveChangesAsync();
             return NoContent();
         }
     }
