@@ -48,7 +48,8 @@ namespace PostDemoApi.Controllers {
         }
 
         // PUT api/<PackageController>/5
-        [HttpPatch("{id}")]
+        [HttpPatch]
+        [Route("PatchPackage")]
         public async Task<IActionResult> Patch(Package package) {
 
             var existPackage = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == package.Id);
