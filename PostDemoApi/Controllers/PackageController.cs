@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PostDemoApi.Contracts;
 using PostDemoApi.DAL;
 using PostDemoApi.Models;
 
@@ -10,10 +11,10 @@ namespace PostDemoApi.Controllers {
     [ApiController]
     public class PackageController : ControllerBase {
 
-        private readonly DatabaseContext _dbContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PackageController(DatabaseContext context) {
-            _dbContext = context;
+        public PackageController(IUnitOfWork unitOfWork) {
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -21,13 +22,13 @@ namespace PostDemoApi.Controllers {
         // GET: api/<PackageController>
         [HttpGet]
         public async Task<IActionResult> Get() {
-            return Ok( await _dbContext.Packages.ToListAsync());
+            return Ok( await _unitOfWork.Packages.GetAll());
         }
 
         // GET api/<PackageController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) {
-            var pack = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == id);
+            var pack = await _unitOfWork.Packages.GetById(id);
 
             if (pack == null) {
                 return NotFound();
@@ -41,9 +42,8 @@ namespace PostDemoApi.Controllers {
         [Route("AddPackage")]
         public async Task<IActionResult> Post(Package package) {
 
-            _dbContext.Packages.Add(package);
-
-            await _dbContext.SaveChangesAsync();
+            await _unitOfWork.Packages.Add(package);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
 
@@ -52,27 +52,25 @@ namespace PostDemoApi.Controllers {
         [Route("PatchPackage")]
         public async Task<IActionResult> Patch(Package package) {
 
-            var existPackage = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == package.Id);
+            var existPackage = await _unitOfWork.Packages.GetById(package.Id);
             if (existPackage == null) {
                 return NotFound();
             }
-            existPackage.Title = package.Title;
-            existPackage.Kilos = package.Kilos;
-            existPackage.Description = package.Description;
-            existPackage.sendDate = package.sendDate;
-            await _dbContext.SaveChangesAsync();
+            await _unitOfWork.Packages.Update(package);
+            await _unitOfWork.CompleteAsync();
             return NoContent();
         }
 
         // DELETE api/<PackageController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
-            var package = await _dbContext.Packages.FirstOrDefaultAsync(x => x.Id == id);
-            if (package == null) {
+            var existPackage = await _unitOfWork.Packages.GetById(id);
+            if (existPackage == null) {
                 return NotFound();
             }
-            _dbContext.Packages.Remove(package);
-            await _dbContext.SaveChangesAsync();
+            await _unitOfWork.Packages.Delete(existPackage);
+            await _unitOfWork.CompleteAsync();
+
             return NoContent();
         }
     }

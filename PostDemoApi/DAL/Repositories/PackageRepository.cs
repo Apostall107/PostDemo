@@ -17,6 +17,17 @@ namespace PostDemoApi.DAL.Repositories {
             }
 
         }
+        public override async Task<Package?> GetById(int id) {
+
+            try {
+                return await _context.Packages.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            } catch (Exception e) {
+                Console.Write(e);
+                throw;
+            }
+
+        }
+
 
         public async Task<List<Package>?> GetPackagesKilosLess(int kilos) {
 

@@ -29,7 +29,7 @@ namespace PostDemoApi.DAL.Repositories {
         }
 
         public virtual async Task<IEnumerable<T>> GetAll() {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<bool> Update(T entity) {
