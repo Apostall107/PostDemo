@@ -15,8 +15,6 @@ namespace PostDemoApi.Controllers {
              Description = "Just some description",
              Kilos = 10,
              sendDate= DateTime.Now,
-             Receiver =  new Client(),
-             Sender = new Client()
             },
                         new Package(){
              Id = 1,
@@ -24,8 +22,6 @@ namespace PostDemoApi.Controllers {
              Description = "Just some description 2 ",
              Kilos = 20,
              sendDate= DateTime.Now,
-             Receiver =  new Client(),
-             Sender = new Client()
             }
 
         };
@@ -57,8 +53,6 @@ namespace PostDemoApi.Controllers {
             if (existPackage == null) {
                 return NotFound();
             }
-            existPackage.Sender = package.Sender;
-            existPackage.Receiver = package.Receiver;
             existPackage.Title = package.Title;
             existPackage.Kilos = package.Kilos;
             existPackage.Description = package.Description;

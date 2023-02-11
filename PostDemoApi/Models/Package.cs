@@ -19,8 +19,6 @@ namespace PostDemoApi.Models {
 
         [DisplayName("Package send date:")]
         public DateTime sendDate { get; set; } = DateTime.UtcNow;
-        public Client Sender { get; set; }
-        public Client Receiver { get; set; }
 
     }
 }

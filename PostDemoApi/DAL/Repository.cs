@@ -1,7 +1,7 @@
-﻿using PostDemoApi.Contracts;
+﻿//using PostDemoApi.Contracts;
 
 namespace PostDemoApi.DAL {
-    public class Repository : IRepository
+    public class Repository // : IRepository
     {
         private readonly DatabaseContext _dbContext;
 
