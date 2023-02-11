@@ -4,7 +4,7 @@ using PostDemoApi.Models;
 
 namespace PostDemoApi.DAL.Repositories {
     public class PackageRepository : GenericRepository<Package>, IPackageRepository {
-        public PackageRepository(DatabaseContext context, DbSet<Package> dbSet, ILogger logger) : base(context, logger) {
+        public PackageRepository(DatabaseContext context, ILogger logger) : base(context, logger) {
         }
 
         public override async Task<IEnumerable<Package>> GetAll() {

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PostDemoApi.Contracts;
 using PostDemoApi.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DatabaseContext>( options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
