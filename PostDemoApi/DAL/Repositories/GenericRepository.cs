@@ -14,24 +14,27 @@ namespace PostDemoApi.DAL.Repositories {
             this._dbSet = _context.Set<T>();
         }
 
-        public Task<bool> Add(T entity) {
-            throw new NotImplementedException();
+        public async Task<bool> Add(T entity) {
+            await _dbSet.AddAsync(entity);
+            return true;
         }
 
-        public Task<bool> Delete(T entity) {
-            throw new NotImplementedException();
+        public async Task<bool> Delete(T entity) {
+            _dbSet.Remove(entity);
+            return true;
         }
 
-        public Task<T> Get(int id) {
-            throw new NotImplementedException();
+        public async Task<T?> GetById(int id) {
+            return await _dbSet.FindAsync(id);
         }
 
-        public Task<IEnumerable<T>> GetAll() {
-            throw new NotImplementedException();
+        public async Task<IEnumerable<T>> GetAll() {
+            return  await _dbSet.ToListAsync();
         }
 
-        public Task<bool> Update(T entity) {
-            throw new NotImplementedException();
+        public async Task<bool> Update(T entity) {
+            _dbSet.Update(entity);
+            return true;
         }
     }
 }
