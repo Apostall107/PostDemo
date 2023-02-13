@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PostDemoApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,22 +40,44 @@ namespace PostDemoApi.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Kilos = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sendDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    sendDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    ReceiverId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Packages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Packages_Clients_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "Clients",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Packages_Clients_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Clients",
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Packages_ReceiverId",
+                table: "Packages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Packages_SenderId",
+                table: "Packages",
+                column: "SenderId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Packages");
 
             migrationBuilder.DropTable(
-                name: "Packages");
+                name: "Clients");
         }
     }
 }

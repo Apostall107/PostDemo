@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PostDemoApi.Models {
     public class Client {
@@ -30,9 +31,17 @@ namespace PostDemoApi.Models {
         [DisplayName("Client Address:")]
         public string Address { get; set; }
 
+        [Required]
         [DisplayName("Client PostalCode:")]
-        
         public string PostalCode { get; set; }
+
+
+        // navigation property
+        public ICollection<Package> PackgesSent  { get; set; }
+        public ICollection<Package> PackgesReveived  { get; set; }
+
+
+
 
     }
 }

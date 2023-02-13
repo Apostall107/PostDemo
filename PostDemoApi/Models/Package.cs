@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PostDemoApi.Models {
     public class Package {
@@ -19,6 +20,19 @@ namespace PostDemoApi.Models {
 
         [DisplayName("Package send date:")]
         public DateTime sendDate { get; set; } = DateTime.UtcNow;
+
+        public int SenderId { get; set; }
+
+        public int ReceiverId { get; set; }
+
+
+        //navigation property
+
+        public Client Sender { get; set; }
+        public Client Receiver { get; set; }
+
+
+
 
     }
 }
