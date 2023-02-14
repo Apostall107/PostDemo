@@ -20,9 +20,9 @@ namespace PostDemoApi.Models {
 
         [DisplayName("Package send date:")]
         public DateTime sendDate { get; set; } = DateTime.UtcNow;
-
+        [Required]
         public int SenderId { get; set; }
-
+        [Required]
         public int ReceiverId { get; set; }
 
 

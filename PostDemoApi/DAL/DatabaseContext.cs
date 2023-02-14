@@ -19,7 +19,7 @@ namespace PostDemoApi.DAL {
 
             modelBuilder.Entity<Package>()
                 .HasOne(x => x.Receiver)
-                .WithMany(x => x.PackgesReveived)
+                .WithMany(x => x.PackgesReceived)
                 .HasForeignKey(x => x.ReceiverId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 

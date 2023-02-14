@@ -38,7 +38,7 @@ namespace PostDemoApi.Models {
 
         // navigation property
         public ICollection<Package> PackgesSent  { get; set; }
-        public ICollection<Package> PackgesReveived  { get; set; }
+        public ICollection<Package> PackgesReceived  { get; set; }
 
 
 
