@@ -28,8 +28,8 @@ namespace PostDemoApi.Models {
 
         //navigation property
 
-        public Client Sender { get; set; }
-        public Client Receiver { get; set; }
+        public Client? Sender { get; set; }
+        public Client? Receiver { get; set; }
 
 
 

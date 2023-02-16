@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PostDemoApi.DAL;
 
@@ -11,9 +12,10 @@ using PostDemoApi.DAL;
 namespace PostDemoApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230214030822_update-database")]
+    partial class updatedatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,7 @@ namespace PostDemoApi.Migrations
             modelBuilder.Entity("PostDemoApi.Models.Package", b =>
                 {
                     b.HasOne("PostDemoApi.Models.Client", "Receiver")
-                        .WithMany("PackgesReceived")
+                        .WithMany("PackgesReveived")
                         .HasForeignKey("ReceiverId")
                         .IsRequired();
 
@@ -123,7 +125,7 @@ namespace PostDemoApi.Migrations
 
             modelBuilder.Entity("PostDemoApi.Models.Client", b =>
                 {
-                    b.Navigation("PackgesReceived");
+                    b.Navigation("PackgesReveived");
 
                     b.Navigation("PackgesSent");
                 });
