@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PostDemoApi.Contracts;
+﻿using PostDemoApi.Contracts;
 using PostDemoApi.DAL.Repositories;
 
 namespace PostDemoApi.DAL {

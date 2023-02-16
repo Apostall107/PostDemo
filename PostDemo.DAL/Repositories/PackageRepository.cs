@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using PostDemo.DAL.Models.Entities;
 using PostDemoApi.Contracts;
-using PostDemoApi.Models;
 
 namespace PostDemoApi.DAL.Repositories {
     public class PackageRepository : GenericRepository<Package>, IPackageRepository {

@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace PostDemoApi.Models {
-    public class Client {
+namespace PostDemo.DAL.Models.DTOs {
+    internal class ClientDTO {
         [Key]
         [DisplayName("Client Id:")]
         public int Id { get; set; }
@@ -34,14 +33,5 @@ namespace PostDemoApi.Models {
         [Required]
         [DisplayName("Client PostalCode:")]
         public string PostalCode { get; set; }
-
-
-        // navigation property
-        public ICollection<Package>? PackgesSent  { get; set; }
-        public ICollection<Package>? PackgesReceived  { get; set; }
-
-
-
-
     }
 }

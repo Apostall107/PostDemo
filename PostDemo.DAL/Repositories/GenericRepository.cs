@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PostDemoApi.Contracts;
+﻿using PostDemoApi.Contracts;
 
 namespace PostDemoApi.DAL.Repositories {
     public class GenericRepository<T> : IGenericRepository<T> where T : class {

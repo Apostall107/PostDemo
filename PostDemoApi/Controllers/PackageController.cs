@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using PostDemo.DAL.Models.Entities;
 using PostDemoApi.Contracts;
-using PostDemoApi.DAL;
-using PostDemoApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,7 +20,7 @@ namespace PostDemoApi.Controllers {
         // GET: api/<PackageController>
         [HttpGet]
         public async Task<IActionResult> Get() {
-            return Ok( await _unitOfWork.Packages.GetAll());
+            return Ok(await _unitOfWork.Packages.GetAll());
         }
 
         // GET api/<PackageController>/5

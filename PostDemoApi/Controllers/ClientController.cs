@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using PostDemo.DAL.Models.Entities;
 using PostDemoApi.Contracts;
-using PostDemoApi.DAL;
-using PostDemoApi.Models;
 
-namespace PostDemoApi.Controllers
-{
+namespace PostDemoApi.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
-    {
+    public class ClientController : ControllerBase {
         private readonly IUnitOfWork _unitOfWork;
 
         public ClientController(IUnitOfWork unitOfWork) {
@@ -29,8 +20,7 @@ namespace PostDemoApi.Controllers
 
         // GET: api/Client/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> Get(int id)
-        {
+        public async Task<ActionResult<Client>> Get(int id) {
             var client = await _unitOfWork.Clients.GetById(id);
 
             if (client == null) {
@@ -44,8 +34,7 @@ namespace PostDemoApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch]
         [Route("PatchClient")]
-        public async Task<IActionResult> PatchClient(Client client)
-        {
+        public async Task<IActionResult> PatchClient(Client client) {
             var existPackage = await _unitOfWork.Clients.GetById(client.Id);
             if (existPackage == null) {
                 return NotFound();
@@ -59,8 +48,7 @@ namespace PostDemoApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Route("AddClient")]
-        public async Task<ActionResult<Client>> Post(Client client)
-        {
+        public async Task<ActionResult<Client>> Post(Client client) {
             await _unitOfWork.Clients.Add(client);
             await _unitOfWork.CompleteAsync();
             return Ok();
@@ -68,8 +56,7 @@ namespace PostDemoApi.Controllers
 
         // DELETE: api/Client/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClient(int id)
-        {
+        public async Task<IActionResult> DeleteClient(int id) {
             var existPackage = await _unitOfWork.Clients.GetById(id);
             if (existPackage == null) {
                 return NotFound();

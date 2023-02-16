@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PostDemoApi.Models {
-    public class Package {
+namespace PostDemo.DAL.Models.DTOs {
+    internal class PackageDTO {
         [Key]
         [DisplayName("Package Id:")]
         public int Id { get; set; }
@@ -24,15 +23,5 @@ namespace PostDemoApi.Models {
         public int SenderId { get; set; }
         [Required]
         public int ReceiverId { get; set; }
-
-
-        //navigation property
-
-        public Client? Sender { get; set; }
-        public Client? Receiver { get; set; }
-
-
-
-
     }
 }

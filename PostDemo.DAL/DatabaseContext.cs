@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PostDemoApi.Models;
+﻿using PostDemo.DAL.Models.Entities;
 
 namespace PostDemoApi.DAL {
     public class DatabaseContext : DbContext {
