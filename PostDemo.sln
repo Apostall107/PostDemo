@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostDemoApi", "PostDemoApi\PostDemoApi.csproj", "{1C1CAEA0-1FE8-4A8B-8DB9-177BD9650F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostDemoApi", "PostDemoApi\PostDemoApi.csproj", "{1C1CAEA0-1FE8-4A8B-8DB9-177BD9650F84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostDemo.DAL", "PostDemo.DAL\PostDemo.DAL.csproj", "{92FE67F6-6023-4F79-93B2-E81BB8B66258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostDemo.BL", "PostDemo.BL\PostDemo.BL.csproj", "{5C153B98-63B0-4B36-A786-ABC3723E4EA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1C1CAEA0-1FE8-4A8B-8DB9-177BD9650F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C1CAEA0-1FE8-4A8B-8DB9-177BD9650F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C1CAEA0-1FE8-4A8B-8DB9-177BD9650F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92FE67F6-6023-4F79-93B2-E81BB8B66258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FE67F6-6023-4F79-93B2-E81BB8B66258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FE67F6-6023-4F79-93B2-E81BB8B66258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FE67F6-6023-4F79-93B2-E81BB8B66258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C153B98-63B0-4B36-A786-ABC3723E4EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C153B98-63B0-4B36-A786-ABC3723E4EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C153B98-63B0-4B36-A786-ABC3723E4EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C153B98-63B0-4B36-A786-ABC3723E4EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
