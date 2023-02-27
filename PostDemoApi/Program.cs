@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PostDemo.Contracts;
 using PostDemo.DAL;
 using PostDemo.DAL.Models.Profiles;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,16 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 
-var app = builder.Build();
+WebApplication app = null;
+try {
+    app = builder.Build();
+} catch (Exception e) {
+    Log.Fatal(e.ToString());
+	throw;
+}
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {

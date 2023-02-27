@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using PostDemo.Contracts;
 using PostDemo.DAL.Repositories;
+using Serilog.Core;
+using Serilog;
 
 namespace PostDemo.DAL {
     public class UnitOfWork : IUnitOfWork, IDisposable {
@@ -10,14 +12,15 @@ namespace PostDemo.DAL {
 
         public IClientRepository Clients { get; }
 
-        public UnitOfWork(DatabaseContext context, ILoggerFactory loggerFactory) {
+        public UnitOfWork(DatabaseContext context) {
             _context = context;
-            var _logger = loggerFactory.CreateLogger("logs");
+            var _logger = new LoggerConfiguration()
+                                    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                                    .CreateLogger();
 
             Packages = new PackageRepository(context, _logger);
 
             Clients = new ClientRepository(context, _logger);
-
 
         }
 
