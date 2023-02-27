@@ -1,7 +1,8 @@
-﻿using PostDemoApi.Contracts;
-using PostDemoApi.DAL.Repositories;
+﻿using Microsoft.Extensions.Logging;
+using PostDemo.Contracts;
+using PostDemo.DAL.Repositories;
 
-namespace PostDemoApi.DAL {
+namespace PostDemo.DAL {
     public class UnitOfWork : IUnitOfWork, IDisposable {
 
         private readonly DatabaseContext _context;

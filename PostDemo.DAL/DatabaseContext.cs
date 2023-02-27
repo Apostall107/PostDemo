@@ -1,6 +1,7 @@
-﻿using PostDemo.DAL.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PostDemo.DAL.Models.Entities;
 
-namespace PostDemoApi.DAL {
+namespace PostDemo.DAL {
     public class DatabaseContext : DbContext {
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options) {

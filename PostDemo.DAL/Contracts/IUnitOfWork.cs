@@ -1,4 +1,4 @@
-﻿namespace PostDemoApi.Contracts {
+﻿namespace PostDemo.Contracts {
     public interface IUnitOfWork {
         IPackageRepository Packages { get; }
 

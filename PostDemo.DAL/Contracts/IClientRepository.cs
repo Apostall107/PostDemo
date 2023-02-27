@@ -1,6 +1,6 @@
 ﻿using PostDemo.DAL.Models.Entities;
 
-namespace PostDemoApi.Contracts {
+namespace PostDemo.Contracts {
     public interface IClientRepository : IGenericRepository<Client> {
 
     }

@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using PostDemoApi.Contracts;
-using PostDemoApi.DAL;
+using PostDemo.Contracts;
+using PostDemo.DAL;
+using PostDemo.DAL.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +13,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Mapper Configuration
+var mapperCfg = new MapperConfiguration(cfg => {
+    cfg.AddProfile<AutoMapperProfile>();
+});
+IMapper mapper = mapperCfg.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 
 var app = builder.Build();
 

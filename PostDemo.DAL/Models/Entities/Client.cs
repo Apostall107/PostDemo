@@ -11,6 +11,7 @@ namespace PostDemo.DAL.Models.Entities {
         public string Name { get; set; }
 
         [DisplayName("Client Email:")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [DisplayName("Client PhoneNumber:")]

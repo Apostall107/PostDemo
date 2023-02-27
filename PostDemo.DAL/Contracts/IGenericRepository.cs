@@ -1,4 +1,4 @@
-﻿namespace PostDemoApi.Contracts {
+﻿namespace PostDemo.Contracts {
     public interface IGenericRepository<T> where T : class {
         Task<IEnumerable<T>> GetAll();
         Task<T?> GetById(int id);

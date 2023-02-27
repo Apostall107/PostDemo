@@ -1,6 +1,8 @@
-﻿using PostDemoApi.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using PostDemo.Contracts;
 
-namespace PostDemoApi.DAL.Repositories {
+namespace PostDemo.DAL.Repositories {
     public class GenericRepository<T> : IGenericRepository<T> where T : class {
 
         protected DatabaseContext _context;

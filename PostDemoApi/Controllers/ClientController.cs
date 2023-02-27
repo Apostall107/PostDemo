@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PostDemo.DAL.Models.Entities;
-using PostDemoApi.Contracts;
+using PostDemo.Contracts;
 
-namespace PostDemoApi.Controllers {
+namespace PostDemo.Api.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase {

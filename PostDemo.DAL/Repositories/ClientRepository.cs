@@ -1,7 +1,8 @@
 ﻿using PostDemo.DAL.Models.Entities;
-using PostDemoApi.Contracts;
+using PostDemo.Contracts;
+using Microsoft.Extensions.Logging;
 
-namespace PostDemoApi.DAL.Repositories {
+namespace PostDemo.DAL.Repositories {
     internal class ClientRepository : GenericRepository<Client>, IClientRepository {
         public ClientRepository(DatabaseContext context, ILogger logger)
             : base(context, logger) {
