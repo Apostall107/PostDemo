@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace PostDemo.DAL.Models.DTOs {
     public class PackageDTO {

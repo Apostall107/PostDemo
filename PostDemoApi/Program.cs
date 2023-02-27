@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PostDemo.Contracts;
 using PostDemo.DAL;
-using PostDemo.DAL.Models;
 using PostDemo.DAL.Models.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PostDemo.DAL.Models.Entities;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using PostDemo.Contracts;
-using AutoMapper;
 using PostDemo.DAL.Models.DTOs;
+using PostDemo.DAL.Models.Entities;
 
 namespace PostDemo.Api.Controllers {
     [Route("api/[controller]")]

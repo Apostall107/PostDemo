@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PostDemo.DAL.Models.Entities;
-using PostDemo.DAL.Models.Profiles;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using PostDemo.Contracts;
-using AutoMapper;
 using PostDemo.DAL.Models.DTOs;
+using PostDemo.DAL.Models.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,7 +25,7 @@ namespace PostDemo.Api.Controllers {
         [HttpGet]
         public async Task<IActionResult> Get() {
             List<Package> pack = await _unitOfWork.Packages.GetAll() as List<Package>;
-            var packageDTO = _mapper.Map<List<Package>,List<PackageDTO>>(pack);
+            var packageDTO = _mapper.Map<List<Package>, List<PackageDTO>>(pack);
 
             return Ok(packageDTO);
         }

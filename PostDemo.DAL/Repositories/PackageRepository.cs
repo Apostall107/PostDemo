@@ -1,7 +1,7 @@
-﻿using PostDemo.DAL.Models.Entities;
-using PostDemo.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
+using PostDemo.Contracts;
+using PostDemo.DAL.Models.Entities;
 
 namespace PostDemo.DAL.Repositories {
     public class PackageRepository : GenericRepository<Package>, IPackageRepository {
