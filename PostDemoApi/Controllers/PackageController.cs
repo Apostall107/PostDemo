@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PostDemo.DAL.Models.Entities;
+using PostDemo.DAL.Models.Profiles;
 using PostDemo.Contracts;
+using AutoMapper;
+using PostDemo.DAL.Models.DTOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,9 +13,11 @@ namespace PostDemo.Api.Controllers {
     public class PackageController : ControllerBase {
 
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public PackageController(IUnitOfWork unitOfWork) {
+        public PackageController(IUnitOfWork unitOfWork, IMapper mapper) {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
 
@@ -20,7 +25,10 @@ namespace PostDemo.Api.Controllers {
         // GET: api/<PackageController>
         [HttpGet]
         public async Task<IActionResult> Get() {
-            return Ok(await _unitOfWork.Packages.GetAll());
+            List<Package> pack = await _unitOfWork.Packages.GetAll() as List<Package>;
+            var packageDTO = _mapper.Map<List<Package>,List<PackageDTO>>(pack);
+
+            return Ok(packageDTO);
         }
 
         // GET api/<PackageController>/5
@@ -31,8 +39,9 @@ namespace PostDemo.Api.Controllers {
             if (pack == null) {
                 return NotFound();
             }
+            var packageDTO = _mapper.Map<PackageDTO>(pack);
 
-            return Ok(pack);
+            return Ok(packageDTO);
         }
 
         // POST api/<PackageController>
@@ -42,6 +51,7 @@ namespace PostDemo.Api.Controllers {
 
             await _unitOfWork.Packages.Add(package);
             await _unitOfWork.CompleteAsync();
+
             return Ok();
         }
 

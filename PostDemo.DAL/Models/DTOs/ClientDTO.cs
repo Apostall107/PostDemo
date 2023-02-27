@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PostDemo.DAL.Models.DTOs {
     public class ClientDTO {
-        [DisplayName("Client Id:")]
-        public int Id { get; set; }
+  
         [DisplayName("Client Name:")]
         public string Name { get; set; }
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PostDemo.DAL.Models.Profiles {
-    internal class PackageProfile : Profile {
+    public class PackageProfile : Profile {
         public PackageProfile() {
             CreateMap<PackageDTO, Package>();
             CreateMap<Package, PackageDTO>();

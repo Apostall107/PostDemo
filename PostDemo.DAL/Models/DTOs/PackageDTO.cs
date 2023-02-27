@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PostDemo.DAL.Models.DTOs {
     public class PackageDTO {
-        [DisplayName("Package Id:")]
-        public int Id { get; set; }
+
         [DisplayName("Package Title:")]
         public string Title { get; set; }
         [DisplayName("Package weight:")]

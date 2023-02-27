@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PostDemo.Contracts;
 using PostDemo.DAL;
 using PostDemo.DAL.Models;
+using PostDemo.DAL.Models.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,8 @@ builder.Services.AddSwaggerGen();
 
 //Mapper Configuration
 var mapperCfg = new MapperConfiguration(cfg => {
-    cfg.AddProfile<AutoMapperProfile>();
+    cfg.AddProfile<ClientProfile>();
+    cfg.AddProfile<PackageProfile>();
 });
 IMapper mapper = mapperCfg.CreateMapper();
 builder.Services.AddSingleton(mapper);

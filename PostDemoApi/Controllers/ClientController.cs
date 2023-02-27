@@ -1,21 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PostDemo.DAL.Models.Entities;
 using PostDemo.Contracts;
+using AutoMapper;
+using PostDemo.DAL.Models.DTOs;
 
 namespace PostDemo.Api.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ClientController(IUnitOfWork unitOfWork) {
+        public ClientController(IUnitOfWork unitOfWork, IMapper mapper) {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         // GET: api/Client
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> Get() {
-            return Ok(await _unitOfWork.Clients.GetAll());
+            List<Client> clients = await _unitOfWork.Clients.GetAll() as List<Client>;
+
+            var clientsDTO = _mapper.Map<List<Client>, List<ClientDTO>>(clients);
+
+            return Ok(clientsDTO);
         }
 
         // GET: api/Client/5
@@ -26,8 +34,9 @@ namespace PostDemo.Api.Controllers {
             if (client == null) {
                 return NotFound();
             }
+            var clientDTO = _mapper.Map<Client>(client);
 
-            return Ok(client);
+            return Ok(clientDTO);
         }
 
         // PUT: api/Client/5

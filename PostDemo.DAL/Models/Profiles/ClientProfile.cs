@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PostDemo.DAL.Models.Profiles {
-    internal class ClientProfile : Profile {
+    public class ClientProfile : Profile {
         public ClientProfile() {
             CreateMap<Client, ClientDTO>();
             CreateMap<ClientDTO, Client>();
