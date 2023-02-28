@@ -1,5 +1,9 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+
+using PostDemo.Api.Middleware;
 using PostDemo.Contracts;
 using PostDemo.DAL;
 using PostDemo.DAL.Models.Profiles;
@@ -20,6 +24,12 @@ var mapperCfg = new MapperConfiguration(cfg => {
     cfg.AddProfile<PackageProfile>();
 });
 IMapper mapper = mapperCfg.CreateMapper();
+
+Log.Logger = new LoggerConfiguration()
+                        .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                        .CreateLogger();
+
+
 builder.Services.AddSingleton(mapper);
 
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext")));
@@ -45,10 +55,15 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<RequestHeadersLoggingMiddleware>();
+app.UseExceptionHandler("/error");
+
 
 app.Run();

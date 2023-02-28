@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PostDemo.Api.Filters;
 using PostDemo.Contracts;
 using PostDemo.DAL.Models.DTOs;
 using PostDemo.DAL.Models.Entities;
 
 namespace PostDemo.Api.Controllers {
+    [ExceptionHandle]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase {

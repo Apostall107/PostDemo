@@ -5,8 +5,8 @@ using Serilog.Core;
 
 namespace PostDemo.DAL.Repositories {
     internal class ClientRepository : GenericRepository<Client>, IClientRepository {
-        public ClientRepository(DatabaseContext context, Logger logger)
-            : base(context, logger) {
+        public ClientRepository(DatabaseContext context)
+            : base(context) {
         }
 
     }

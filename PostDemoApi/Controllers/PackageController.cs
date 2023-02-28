@@ -63,6 +63,11 @@ namespace PostDemo.Api.Controllers {
             if (existPackage == null) {
                 return NotFound();
             }
+            // custom validation 
+            //  make method with exception 
+            // set all fields9() if name smth set 9.......
+            // needs loops and conditions in methods 
+
             await _unitOfWork.Packages.Update(package);
             await _unitOfWork.CompleteAsync();
             return NoContent();

@@ -14,13 +14,10 @@ namespace PostDemo.DAL {
 
         public UnitOfWork(DatabaseContext context) {
             _context = context;
-            var _logger = new LoggerConfiguration()
-                                    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                                    .CreateLogger();
 
-            Packages = new PackageRepository(context, _logger);
+            Packages = new PackageRepository(context);
 
-            Clients = new ClientRepository(context, _logger);
+            Clients = new ClientRepository(context);
 
         }
 

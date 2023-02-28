@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PostDemo.Contracts;
+using Serilog;
 using Serilog.Core;
 
 namespace PostDemo.DAL.Repositories {
@@ -8,11 +9,10 @@ namespace PostDemo.DAL.Repositories {
 
         protected DatabaseContext _context;
         internal DbSet<T> _dbSet;
-        protected readonly Logger _logger;
 
-        public GenericRepository(DatabaseContext context, Logger logger) {
+
+        public GenericRepository(DatabaseContext context) {
             _context = context;
-            _logger = logger;
             this._dbSet = _context.Set<T>();
         }
 
@@ -21,7 +21,7 @@ namespace PostDemo.DAL.Repositories {
                 await _dbSet.AddAsync(entity);
                 return true;
             } catch (Exception e) {
-                _logger.Error(e.ToString());
+                Log.Error(e.ToString());
                 Console.Write(e);
                 throw;
             }
@@ -32,7 +32,7 @@ namespace PostDemo.DAL.Repositories {
                 _dbSet.Remove(entity);
                 return true;
             } catch (Exception e) {
-                _logger.Error(e.ToString());
+                Log.Error(e.ToString());
                 Console.Write(e);
                 throw;
             }
@@ -40,9 +40,10 @@ namespace PostDemo.DAL.Repositories {
 
         public virtual async Task<T?> GetById(int id) {
             try {
+ 
                 return await _dbSet.FindAsync(id);
             } catch (Exception e) {
-                _logger.Error(e.ToString());
+                Log.Error(e.ToString());
                 Console.Write(e);
                 throw;
             }
@@ -50,9 +51,10 @@ namespace PostDemo.DAL.Repositories {
 
         public virtual async Task<IEnumerable<T>> GetAll() {
             try {
+                throw new NotFiniteNumberException();
                 return await _dbSet.AsNoTracking().ToListAsync();
             } catch (Exception e) {
-                _logger.Error(e.ToString());
+                Log.Error(e.ToString());
                 Console.Write(e);
                 throw;
             }
@@ -62,7 +64,7 @@ namespace PostDemo.DAL.Repositories {
             try {
                 _dbSet.Update(entity);
             } catch (Exception e) {
-                _logger.Error(e.ToString());
+                Log.Error(e.ToString());
                 Console.Write(e);
                 throw;
             }
