@@ -12,6 +12,7 @@ namespace PostDemo.Api.Middleware {
             LogHeaders(context.Request.Headers); // логирование заголовков запроса
 
             await _next(context);
+            Log.Information("Endpoint returned response");
         }
 
         private void LogHeaders(IHeaderDictionary headers) {

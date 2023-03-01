@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-
+using PostDemo.Api.Filters;
 using PostDemo.Api.Middleware;
 using PostDemo.Contracts;
 using PostDemo.DAL;
@@ -58,12 +58,13 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 
+app.ConfigureGlobalExceptionHandling(Log.Logger);
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.UseMiddleware<RequestHeadersLoggingMiddleware>();
-app.UseExceptionHandler("/error");
 
 
 app.Run();
