@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PostDemo.BL.Extentions;
+using PostDemo.BL.Helpers;
 using PostDemo.Contracts;
 using PostDemo.DAL.Models.DTOs;
 using PostDemo.DAL.Models.Entities;
@@ -27,6 +29,17 @@ namespace PostDemo.Api.Controllers {
             List<Package> pack = await _unitOfWork.Packages.GetAll() as List<Package>;
             var packageDTO = _mapper.Map<List<Package>, List<PackageDTO>>(pack);
 
+
+            RandomException.RandomExceptionGenerate();
+            return Ok(packageDTO);
+        }
+
+        [HttpGet("{kilos}")]
+        public async Task<IActionResult> GetKilosLessThan(int kilos) {
+            List<Package> pack = await _unitOfWork.Packages.GetPackagesKilosLess(kilos) as List<Package>;
+            var packageDTO = _mapper.Map<List<Package>, List<PackageDTO>>(pack);
+
+            RandomException.RandomExceptionGenerate();
             return Ok(packageDTO);
         }
 
@@ -40,6 +53,7 @@ namespace PostDemo.Api.Controllers {
             }
             var packageDTO = _mapper.Map<PackageDTO>(pack);
 
+            RandomException.RandomExceptionGenerate();
             return Ok(packageDTO);
         }
 
@@ -48,9 +62,13 @@ namespace PostDemo.Api.Controllers {
         [Route("AddPackage")]
         public async Task<IActionResult> Post(Package package) {
 
+            package.ChangeKilosInLoop();
+            package.SetEmptyFieldsToNotSet();
+
             await _unitOfWork.Packages.Add(package);
             await _unitOfWork.CompleteAsync();
 
+            RandomException.RandomExceptionGenerate();
             return Ok();
         }
 
@@ -63,13 +81,12 @@ namespace PostDemo.Api.Controllers {
             if (existPackage == null) {
                 return NotFound();
             }
-            // custom validation 
-            //  make method with exception 
-            // set all fields9() if name smth set 9.......
-            // needs loops and conditions in methods 
+            package.ChangeKilosInLoop();
 
             await _unitOfWork.Packages.Update(package);
             await _unitOfWork.CompleteAsync();
+
+            RandomException.RandomExceptionGenerate();
             return NoContent();
         }
 
@@ -83,6 +100,7 @@ namespace PostDemo.Api.Controllers {
             await _unitOfWork.Packages.Delete(existPackage);
             await _unitOfWork.CompleteAsync();
 
+            RandomException.RandomExceptionGenerate();
             return NoContent();
         }
     }

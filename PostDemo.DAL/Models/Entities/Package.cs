@@ -18,6 +18,7 @@ namespace PostDemo.DAL.Models.Entities {
         public string Description { get; set; }
 
         [DisplayName("Package send date:")]
+        [ValidateSendDate(ErrorMessage = "Send date should be less than or equal to today's date")]
         public DateTime sendDate { get; set; } = DateTime.UtcNow;
         [Required]
         public int SenderId { get; set; }
@@ -34,4 +35,19 @@ namespace PostDemo.DAL.Models.Entities {
 
 
     }
+
+        //custom validation attribute for SendDate
+    public class ValidateSendDate : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var sendDate = (DateTime)value;
+            if (sendDate.Date > DateTime.UtcNow.Date)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+            return ValidationResult.Success;
+        }
+    }
+
 }

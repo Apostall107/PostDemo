@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PostDemo.Api.Filters;
+using PostDemo.BL.Extentions;
+using PostDemo.BL.Helpers;
 using PostDemo.Contracts;
 using PostDemo.DAL.Models.DTOs;
 using PostDemo.DAL.Models.Entities;
@@ -25,6 +27,8 @@ namespace PostDemo.Api.Controllers {
 
             var clientsDTO = _mapper.Map<List<Client>, List<ClientDTO>>(clients);
 
+
+            RandomException.RandomExceptionGenerate();
             return Ok(clientsDTO);
         }
 
@@ -38,6 +42,7 @@ namespace PostDemo.Api.Controllers {
             }
             var clientDTO = _mapper.Map<Client>(client);
 
+            RandomException.RandomExceptionGenerate();
             return Ok(clientDTO);
         }
 
@@ -46,12 +51,19 @@ namespace PostDemo.Api.Controllers {
         [HttpPatch]
         [Route("PatchClient")]
         public async Task<IActionResult> PatchClient(Client client) {
-            var existPackage = await _unitOfWork.Clients.GetById(client.Id);
-            if (existPackage == null) {
+            var existClient = await _unitOfWork.Clients.GetById(client.Id);
+            if (existClient == null) {
                 return NotFound();
             }
+
+            client.SetEmptyFieldsToNotSet();
+            client.AddCountryCodeToPhoneNumber();
+           
+            
             await _unitOfWork.Clients.Update(client);
             await _unitOfWork.CompleteAsync();
+
+            RandomException.RandomExceptionGenerate();
             return NoContent();
         }
 
@@ -60,21 +72,28 @@ namespace PostDemo.Api.Controllers {
         [HttpPost]
         [Route("AddClient")]
         public async Task<ActionResult<Client>> Post(Client client) {
+
+            client.SetEmptyFieldsToNotSet();
+            client.AddCountryCodeToPhoneNumber();
+
             await _unitOfWork.Clients.Add(client);
             await _unitOfWork.CompleteAsync();
+
+            RandomException.RandomExceptionGenerate();
             return Ok();
         }
 
         // DELETE: api/Client/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(int id) {
-            var existPackage = await _unitOfWork.Clients.GetById(id);
-            if (existPackage == null) {
+            var existClient = await _unitOfWork.Clients.GetById(id);
+            if (existClient == null) {
                 return NotFound();
             }
-            await _unitOfWork.Clients.Delete(existPackage);
+            await _unitOfWork.Clients.Delete(existClient);
             await _unitOfWork.CompleteAsync();
 
+            RandomException.RandomExceptionGenerate();
             return NoContent();
         }
     }
