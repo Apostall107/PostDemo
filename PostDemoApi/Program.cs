@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using PostDemo.Api.Filters;
 using PostDemo.Api.Middleware;
+using PostDemo.BL;
+using PostDemo.BL.Helpers;
 using PostDemo.Contracts;
 using PostDemo.DAL;
 using PostDemo.DAL.Models.Profiles;
@@ -35,6 +37,8 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<EmailService>();
+builder.Services.AddSingleton<SMTPConfig>();
 
 
 

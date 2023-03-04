@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PostDemo.BL.Helpers.PackageHelpers {
@@ -12,6 +13,12 @@ namespace PostDemo.BL.Helpers.PackageHelpers {
         }
         public static bool IsSenderReceiverValid(int senderId, int receiverId) {
             return senderId != receiverId;
+        }
+
+        public static void VerifyFileName(ref string fileName)
+        {
+            string invalideChars = "[?:\\/*\"<>|]";
+            fileName = Regex.Replace(fileName, invalideChars, "");
         }
     }
 }
