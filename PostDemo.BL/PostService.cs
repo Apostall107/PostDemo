@@ -48,6 +48,10 @@ namespace PostDemo.BL
                     {
                         smtp.Send();
                     }
+                    else
+                    {
+                        throw new Exception("SMTP is not configured");
+                    }
                 }
             }
             catch (Exception ex)
