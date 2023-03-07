@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PostDemo.BL.Helpers.ClientHelpers
 {
-    internal class ClientValidator : AbstractValidator<Client>
+    public class ClientValidator : AbstractValidator<Client>
     {
         public ClientValidator()
         {
