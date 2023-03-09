@@ -10,10 +10,10 @@ namespace PostDemo.BL
 {
     public class PostService
     {
-        private EmailService _emailService;
-        private SMTPConfig _smtpConfig;
+        private IEmailService _emailService;
+        private ISMTPConfig _smtpConfig;
 
-        public PostService(EmailService emailService, SMTPConfig smtp)
+        public PostService(IEmailService emailService, ISMTPConfig smtp)
         {
             _emailService = emailService;
             _smtpConfig = smtp;

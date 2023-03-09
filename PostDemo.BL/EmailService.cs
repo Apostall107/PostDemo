@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace PostDemo.BL
 {
-    public class EmailService
-    {
-        public string FormatAttachmentName(string attachmentName, string receiverName, DateTime? date)
-        {
+    public class EmailService : IEmailService {
+        public string FormatAttachmentName(string attachmentName, string receiverName, DateTime? date) {
             attachmentName = attachmentName.Replace("\\", "-").Replace("/", "-").Replace("\"", "\'");
 
-            if (!string.IsNullOrEmpty(receiverName))
-            {
+            if (!string.IsNullOrEmpty(receiverName)) {
                 receiverName = receiverName.Replace("\\", "-").Replace("/", "-").Replace("\"", "\'");
                 receiverName = receiverName.Length > 0 ? receiverName + "_" : receiverName;
             }

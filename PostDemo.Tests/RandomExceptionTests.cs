@@ -10,12 +10,10 @@ using System.Threading.Tasks;
 namespace PostDemo.Tests {
     [TestFixture]
     public class RandomExceptionTests {
-        Random rand;
+        Random rand = new Random();
 
         [SetUp] 
         public void SetUp() {
-
-            rand = new Random();
         }
 
 
@@ -47,9 +45,9 @@ namespace PostDemo.Tests {
         public void RandomExceptionGenerate_NoExceptionThrown() {
             var value = rand.Next(10, 100);
             // Act
-            RandomException.RandomExceptionGenerate(value);
+            TestDelegate del = () => RandomException.RandomExceptionGenerate(value);
             // Assert
-            // Ensure no exception was thrown
+            Assert.DoesNotThrow(del);
         }
     }
 

@@ -10,12 +10,12 @@ namespace PostDemo.BL.Extentions {
         public static void ChangeKilosInLoop(this Package package) {
 
             var counter = 0;
-            for (int i = 1; i <= package.Kilos + 1; i++) {
+            for (int i = 1; i <= package.Kilos; i++) {
                 counter++;
                 counter++;
 
             }
-            if (counter < 100) {
+            if (counter <= 100) {
                 package.Kilos = counter;
             }
         }

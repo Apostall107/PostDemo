@@ -34,9 +34,9 @@ namespace PostDemo.Tests {
 
         [Test]
         public void Email_ValueIsNull_HaveError() {
-            var client = new Client { Email = "asdffffff." };
+            _client.Email = "asdffffff.";
 
-            var result = _validator.TestValidate(client);
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.Email)
                   .WithErrorMessage("Invalid email address.");
@@ -44,9 +44,9 @@ namespace PostDemo.Tests {
 
         [Test]
         public void Email_ValueIsNotAnEmailAddress_HaveError() {
-            var client = new Client { Email = "notanemailaddress" };
+            _client.Email = "notanemailaddress";
 
-            var result = _validator.TestValidate(client);
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.Email)
                   .WithErrorMessage("Invalid email address.");
@@ -54,9 +54,9 @@ namespace PostDemo.Tests {
 
         [Test]
         public void Country_ValueIsNull_HaveError() {
-            var client = new Client { Country = null };
+            _client.Country = null;
 
-            var result = _validator.TestValidate(client);
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.Country)
                   .WithErrorMessage("Country is required.");
@@ -64,9 +64,10 @@ namespace PostDemo.Tests {
 
         [Test]
         public void Region_ValueIsNull_HaveError() {
-            var client = new Client { Region = null };
+            _client.Region = null;
 
-            var result = _validator.TestValidate(client);
+
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.Region)
                   .WithErrorMessage("Region is required.");
@@ -74,9 +75,10 @@ namespace PostDemo.Tests {
 
         [Test]
         public void City_ValueIsNull_HaveError() {
-            var client = new Client { City = null };
+            _client.City = null;
 
-            var result = _validator.TestValidate(client);
+
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.City)
                   .WithErrorMessage("City is required.");
@@ -84,9 +86,9 @@ namespace PostDemo.Tests {
 
         [Test]
         public void Address_ValueIsNull_HaveError() {
-            var client = new Client { Address = null };
+            _client.Address = null;
 
-            var result = _validator.TestValidate(client);
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.Address)
                   .WithErrorMessage("Address is required.");
@@ -94,9 +96,10 @@ namespace PostDemo.Tests {
 
         [Test]
         public void PostalCode_WhenValueIsNull_HaveError() {
-            var client = new Client { PostalCode = null };
+            _client.PostalCode = null;
 
-            var result = _validator.TestValidate(client);
+
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.PostalCode)
                   .WithErrorMessage("Postal code is required.");
@@ -104,19 +107,20 @@ namespace PostDemo.Tests {
 
         [Test]
         public void PostalCode_ValueIsInvalid_HaveError() {
-            var client = new Client { PostalCode = "notavalidpostalcode" };
+            _client.PostalCode = "notavalidpostalcode";
 
-            var result = _validator.TestValidate(client);
+
+            var result = _validator.TestValidate(_client);
 
             result.ShouldHaveValidationErrorFor(x => x.PostalCode)
                   .WithErrorMessage("Invalid postal code.");
         }
 
         [Test]
-        public void PostalCode_ValueIsValid_NotHaveError() {
-            var client = new Client { PostalCode = "12345" };
+        public void PostalCode_ValueIsValid_NoError() {
+            _client.PostalCode = "12345";
 
-            var result = _validator.TestValidate(client);
+            var result = _validator.TestValidate(_client);
 
             result.ShouldNotHaveValidationErrorFor(x => x.PostalCode);
         }
