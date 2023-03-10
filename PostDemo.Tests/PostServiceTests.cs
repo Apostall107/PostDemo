@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Moq;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 
 namespace PostDemo.Tests {
     [TestFixture]
@@ -19,8 +20,8 @@ namespace PostDemo.Tests {
 
         [SetUp]
         public void Setup() {
-            
-            _emailServiceFake = A.Fake<IEmailService>(); 
+
+            _emailServiceFake = A.Fake<IEmailService>();
             _smtpConfigFake = A.Fake<ISMTPConfig>();
             _postService = new PostService(_emailServiceFake, _smtpConfigFake);
         }
@@ -49,7 +50,7 @@ namespace PostDemo.Tests {
         [Test]
         [TestCase(null, "subject", "emailBody", "attachmentName", new byte[] { 0x01, 0x02, 0x03 })]
         public void SendEmail_NoRecipient_ThrowsException(
-    string recepient,
+    string recipient,
     string subject,
     string emailBody,
     string attachmentName,
@@ -57,48 +58,26 @@ namespace PostDemo.Tests {
             // Arrange
             A.CallTo(() => _smtpConfigFake.IsConfigured).Returns(false);
             A.CallTo(() => _emailServiceFake.FormatAttachmentName(attachmentName,
-                recepient,
+                recipient,
                 DateTime.Now)).Returns(attachmentName);
             //Act
             TestDelegate del = () => {
-                _postService.SendEmail(recepient, subject, emailBody, attachmentName, attachment);
+                _postService.SendEmail(recipient, subject, emailBody, attachmentName, attachment);
             };
             //Assert
             Assert.Throws<Exception>(del);
         }
 
         [Test]
-        [TestCase(null, "subject", "emailBody", "attachmentName", new byte[] { 0x01, 0x02, 0x03 })]
+        [TestCase("recepient", "subject", "emailBody", "attachmentName", new byte[] { 0x01, 0x02, 0x03 })]
         public void SendEmail_WithRecipient_DoesNotThrowException(
-    string recepient,
+    string recipient,
     string subject,
     string emailBody,
     string attachmentName,
-    byte[] attachment) { 
+    byte[] attachment) {
             // Act & Assert
-            Assert.DoesNotThrow(() => _postService.SendEmail(recepient, subject, emailBody, attachmentName, attachment));
-        }
-
-        [Test]
-        [TestCase("recepient",null, null, null, new byte[] { 0x01, 0x02, 0x03 })]
-        public void SendEmail_SubjectEmailBodyAttachmentNameAreNull_SetsValueToThem(
-string recepient,
-string subject,
-string emailBody,
-string attachmentName,
-byte[] attachment) {
-            // Arrange
-            A.CallTo(() => _smtpConfigFake.IsConfigured).Returns(false);
-            A.CallTo(() => _emailServiceFake.FormatAttachmentName(attachmentName,
-                recepient,
-                DateTime.Now)).Returns(attachmentName);
-            //Act
-            TestDelegate del = () => {
-                _postService.SendEmail(recepient, subject, emailBody, attachmentName, attachment);
-            };
-            //Assert
-            Assert.DoesNotThrow(del);
-            Assert.That(del, is );
+            Assert.DoesNotThrow(() => _postService.SendEmail(recipient, subject, emailBody, attachmentName, attachment));
         }
 
 
@@ -109,6 +88,15 @@ byte[] attachment) {
             Assert.AreEqual(_postService.IsSMTPConfigured(value), value);
         }
 
+        [TestCase("test@example.com", "Test email", "This is a test email", "test_attachment.pdf", new byte[] { 1, 2, 3, 4 })]
+        [TestCase("test2@example.com", "Another test email", "This is another test email", null, null)]
+        public void SendEmailAsync_SendsEmailDespiteAnyAttachmentOrNone(string recipient, string subject, string emailBody, string attachmentName, byte[] attachment) {
+            // Act
+            TestDelegate del = () => _postService.SendEmailAsync(recipient, subject, emailBody, attachmentName, attachment);
+
+            // Assert
+            Assert.DoesNotThrow(del);
+        }
 
     }
 
